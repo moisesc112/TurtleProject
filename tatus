@@ -1,0 +1,35 @@
+[33mcommit 9afd24a2d7f027e4adf1e45f1e6536c5809de08b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Wed Jan 14 16:22:36 2026 -0800
+
+    Implemented slope steepness to affect walking speed, removed constant downhill force
+
+[33mcommit b2b2343cb6ed4beb741d60aca6ce4d96e005e001[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Tue Jan 13 11:45:28 2026 -0800
+
+    Added level reset for winning/losing
+
+[33mcommit c9d2754ad7d5b7ced2be66d04d06767534d4122b[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Tue Jan 13 10:49:30 2026 -0800
+
+    Added victory trigger box
+
+[33mcommit 3a6b6d535b6d4150d3a659ba5cca65d847955877[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Mon Jan 12 16:52:09 2026 -0800
+
+    Added downward slide force to player character
+
+[33mcommit 05523a86db35da7b9073795a658ccbedee555817[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Mon Jan 12 14:52:07 2026 -0800
+
+    Added placeholder player model
+
+[33mcommit caf3165cb3198a9782e8db4b9c352dbe995d5481[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Moises Castro <moisescastro112@gmail.com>
+Date:   Mon Jan 12 13:52:10 2026 -0800
+
+    Initial commit
