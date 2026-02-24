@@ -30,7 +30,10 @@ void UTurtleStaminaComponent::BeginPlay()
 void UTurtleStaminaComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	if (bIsSprinting)
+	{
+		DrainStamina(DeltaTime, 0.f, false);
+	}
 	// ...
 }
 
@@ -44,5 +47,35 @@ void UTurtleStaminaComponent::DrainStamina(const float DeltaTime, const float Da
 	{
 		CurrentStamina = FMath::Clamp( CurrentStamina - (DeltaTime * DrainRate), 0.f, MaxStamina - DamageTaken);
 	}
+}
+
+float UTurtleStaminaComponent::GetCurrentStamina() const
+{
+	return CurrentStamina;
+}
+
+float UTurtleStaminaComponent::GetMaxStamina() const
+{
+	return MaxStamina;
+}
+
+bool UTurtleStaminaComponent::CanSprint() const
+{
+	return CurrentStamina > 0.f;
+}
+
+void UTurtleStaminaComponent::SetSprinting(const bool bSprintingNow)
+{
+	bIsSprinting = bSprintingNow;
+}
+
+void UTurtleStaminaComponent::SetStamina(const float NewStamina)
+{
+	CurrentStamina = NewStamina;
+}
+
+void UTurtleStaminaComponent::RegenStamina(const float DeltaTime, const float DamageTaken)
+{
+	CurrentStamina = FMath::Clamp((DeltaTime * RegenRate) + CurrentStamina, 0.f, MaxStamina - DamageTaken);
 }
 

@@ -15,27 +15,27 @@ class TURTLEPROJECT_API UTurtleStaminaComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTurtleStaminaComponent();
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stamina")
-	float MaxStamina = 100.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stamina")
-	float CurrentStamina = 100.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stamina")
-	float DrainRate = 20.f;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Stamina")
-	float RegenRate = 40.f;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Stamina")
-	float JumpStaminaUsage = 20.f;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Stamina")
-	bool bIsSprinting = false;
 	
 	UFUNCTION(BlueprintCallable, Category="Stamina")
 	void DrainStamina(float DeltaTime, float DamageTaken, bool bJustJumped);
+	
+	UFUNCTION(BlueprintPure, Category="Stamina")
+	float GetCurrentStamina() const;
+	
+	UFUNCTION(BlueprintPure, Category="Stamina")
+	float GetMaxStamina() const;
+	
+	UFUNCTION(BlueprintPure, Category="Stamina")
+	bool CanSprint() const;
+	
+	UFUNCTION(BlueprintCallable, Category="Stamina")
+	void SetSprinting(const bool bSprintingNow);
+	
+	UFUNCTION(BlueprintCallable, Category="Stamina")
+	void SetStamina(const float NewStamina);
+	
+	UFUNCTION(BlueprintCallable, Category="Stamina")
+	void RegenStamina(const float DeltaTime, const float DamageTaken);
 	
 protected:
 	// Called when the game starts
@@ -45,6 +45,24 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
+private:
 	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float MaxStamina = 100.f;
+	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float CurrentStamina = 100.f;
+	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float DrainRate = 20.f;
+	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float RegenRate = 40.f;
+	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float JumpStaminaUsage = 20.f;
+	
+	UPROPERTY(VisibleAnywhere, Category="Stamina")
+	bool bIsSprinting = false;
 		
 };
