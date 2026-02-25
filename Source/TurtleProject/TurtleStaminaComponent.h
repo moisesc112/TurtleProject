@@ -17,7 +17,7 @@ public:
 	UTurtleStaminaComponent();
 	
 	UFUNCTION(BlueprintCallable, Category="Stamina")
-	void DrainStamina(float DeltaTime, float DamageTaken, bool bJustJumped);
+	void DrainStamina(const float DeltaTime, const float DamageTaken, const bool bJustJumped);
 	
 	UFUNCTION(BlueprintPure, Category="Stamina")
 	float GetCurrentStamina() const;
