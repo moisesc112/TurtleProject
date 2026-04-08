@@ -31,6 +31,9 @@ class ATurtleProjectCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
+	FVector2D MovementVector = FVector2D::ZeroVector;
+	
 protected:
 
 	/** Jump Input Action */
@@ -64,6 +67,8 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
+	void StopMove(const FInputActionValue& Value);
+	
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
@@ -84,6 +89,9 @@ public:
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
+	
+	UFUNCTION(BlueprintCallable, Category="Input")
+	FVector2D GetMovementVector() const { return MovementVector; }
 
 public:
 

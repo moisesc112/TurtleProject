@@ -61,6 +61,7 @@ void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATurtleProjectCharacter::StopMove);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Look);
 
 		// Looking
@@ -75,10 +76,15 @@ void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 void ATurtleProjectCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	MovementVector = Value.Get<FVector2D>();
 
 	// route the input
 	DoMove(MovementVector.X, MovementVector.Y);
+}
+
+void ATurtleProjectCharacter::StopMove(const FInputActionValue& Value)
+{
+	MovementVector = FVector2D::ZeroVector;
 }
 
 void ATurtleProjectCharacter::Look(const FInputActionValue& Value)
