@@ -62,6 +62,7 @@ void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Move);
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATurtleProjectCharacter::StopMove);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &ATurtleProjectCharacter::StopMove);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Look);
 
 		// Looking
