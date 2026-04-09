@@ -6,6 +6,15 @@
 #include "Components/ActorComponent.h"
 #include "TurtleStaminaComponent.generated.h"
 
+UENUM(BlueprintType)
+enum class EStaminaUsageType : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Jump UMETA(DisplayName = "Jump"),
+	Dash UMETA(DisplayName = "Dash"),
+	Slide UMETA(DisplayName = "Slide"),
+	Sprint UMETA(DisplayName = "Sprint")
+};
 
 UCLASS( ClassGroup=(Custom), BlueprintType, Blueprintable, meta=(BlueprintSpawnableComponent) )
 class TURTLEPROJECT_API UTurtleStaminaComponent : public UActorComponent
@@ -17,7 +26,7 @@ public:
 	UTurtleStaminaComponent();
 	
 	UFUNCTION(BlueprintCallable, Category="Stamina")
-	void DrainStamina(const float DeltaTime, const float DamageTaken, const bool bJustJumped);
+	void DrainStamina(const float DeltaTime, const float DamageTaken, const EStaminaUsageType UsageType);
 	
 	UFUNCTION(BlueprintPure, Category="Stamina")
 	float GetCurrentStamina() const;
@@ -61,6 +70,9 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category="Stamina")
 	float JumpStaminaUsage = 20.f;
+	
+	UPROPERTY(EditAnywhere, Category="Stamina")
+	float DashStaminaUsage = 50.f;
 	
 	UPROPERTY(VisibleAnywhere, Category="Stamina")
 	bool bIsSprinting = false;

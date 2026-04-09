@@ -32,20 +32,28 @@ void UTurtleStaminaComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (bIsSprinting)
 	{
-		DrainStamina(DeltaTime, 0.f, false);
+		DrainStamina(DeltaTime, 0.f, EStaminaUsageType::Sprint);
 	}
 	// ...
 }
 
-void UTurtleStaminaComponent::DrainStamina(const float DeltaTime, const float DamageTaken, const bool bJustJumped)
+void UTurtleStaminaComponent::DrainStamina(const float DeltaTime, const float DamageTaken, const EStaminaUsageType UsageType)
 {
-	if (bJustJumped)
+	switch (UsageType)
 	{
-		CurrentStamina = FMath::Clamp(CurrentStamina - JumpStaminaUsage, 0.f, MaxStamina - DamageTaken);
-	}
-	else
-	{
-		CurrentStamina = FMath::Clamp( CurrentStamina - (DeltaTime * DrainRate), 0.f, MaxStamina - DamageTaken);
+		case EStaminaUsageType::None :
+			break;
+		case EStaminaUsageType::Jump :
+			CurrentStamina = FMath::Clamp(CurrentStamina - JumpStaminaUsage, 0.f, MaxStamina - DamageTaken);
+			break;
+		case EStaminaUsageType::Dash :
+			CurrentStamina = FMath::Clamp(CurrentStamina - DashStaminaUsage, 0.f, MaxStamina - DamageTaken);
+			break;
+		case EStaminaUsageType::Slide :
+			break;
+		case EStaminaUsageType::Sprint :
+			CurrentStamina = FMath::Clamp( CurrentStamina - (DeltaTime * DrainRate), 0.f, MaxStamina - DamageTaken);
+			break;
 	}
 }
 
