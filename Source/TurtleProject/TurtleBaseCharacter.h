@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "TurtleProjectCharacter.generated.h"
+#include "TurtleBaseCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -19,7 +19,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class ATurtleProjectCharacter : public ACharacter
+class ATurtleBaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -58,7 +58,7 @@ protected:
 public:
 
 	/** Constructor */
-	ATurtleProjectCharacter();	
+	ATurtleBaseCharacter();	
 
 protected:
 

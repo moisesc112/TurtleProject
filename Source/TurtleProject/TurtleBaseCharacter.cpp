@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "TurtleProjectCharacter.h"
+#include "TurtleBaseCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -12,7 +12,7 @@
 #include "InputActionValue.h"
 #include "TurtleProject.h"
 
-ATurtleProjectCharacter::ATurtleProjectCharacter()
+ATurtleBaseCharacter::ATurtleBaseCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -50,7 +50,7 @@ ATurtleProjectCharacter::ATurtleProjectCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
-void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATurtleBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
@@ -60,13 +60,13 @@ void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Move);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATurtleProjectCharacter::StopMove);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &ATurtleProjectCharacter::StopMove);
-		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Look);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATurtleBaseCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATurtleBaseCharacter::StopMove);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Canceled, this, &ATurtleBaseCharacter::StopMove);
+		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ATurtleBaseCharacter::Look);
 
 		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATurtleProjectCharacter::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATurtleBaseCharacter::Look);
 	}
 	else
 	{
@@ -74,7 +74,7 @@ void ATurtleProjectCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 	}
 }
 
-void ATurtleProjectCharacter::Move(const FInputActionValue& Value)
+void ATurtleBaseCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	MovementVector = Value.Get<FVector2D>();
@@ -83,12 +83,12 @@ void ATurtleProjectCharacter::Move(const FInputActionValue& Value)
 	DoMove(MovementVector.X, MovementVector.Y);
 }
 
-void ATurtleProjectCharacter::StopMove(const FInputActionValue& Value)
+void ATurtleBaseCharacter::StopMove(const FInputActionValue& Value)
 {
 	MovementVector = FVector2D::ZeroVector;
 }
 
-void ATurtleProjectCharacter::Look(const FInputActionValue& Value)
+void ATurtleBaseCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
@@ -97,7 +97,7 @@ void ATurtleProjectCharacter::Look(const FInputActionValue& Value)
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
 }
 
-void ATurtleProjectCharacter::DoMove(float Right, float Forward)
+void ATurtleBaseCharacter::DoMove(float Right, float Forward)
 {
 	if (GetController() != nullptr)
 	{
@@ -117,7 +117,7 @@ void ATurtleProjectCharacter::DoMove(float Right, float Forward)
 	}
 }
 
-void ATurtleProjectCharacter::DoLook(float Yaw, float Pitch)
+void ATurtleBaseCharacter::DoLook(float Yaw, float Pitch)
 {
 	if (GetController() != nullptr)
 	{
@@ -127,13 +127,13 @@ void ATurtleProjectCharacter::DoLook(float Yaw, float Pitch)
 	}
 }
 
-void ATurtleProjectCharacter::DoJumpStart()
+void ATurtleBaseCharacter::DoJumpStart()
 {
 	// signal the character to jump
 	Jump();
 }
 
-void ATurtleProjectCharacter::DoJumpEnd()
+void ATurtleBaseCharacter::DoJumpEnd()
 {
 	// signal the character to stop jumping
 	StopJumping();
