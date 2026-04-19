@@ -61,6 +61,13 @@ bool UTurtleAbilityComponent::TryDash()
 	if (!StatusComp)
 		return false;
 	
+	UCharacterMovementComponent* MovementComp =  TurtleOwner->GetCharacterMovement();
+	if (!MovementComp)
+		return false;
+	
+	if (MovementComp->IsFalling())
+		return false;
+	
 	if (!HasEnoughStamina())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Not Enough Stamina to Dash"));
