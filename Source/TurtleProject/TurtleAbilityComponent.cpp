@@ -61,10 +61,6 @@ bool UTurtleAbilityComponent::TryDash()
 	if (!StatusComp)
 		return false;
 	
-	UCharacterMovementComponent* MovementComp =  TurtleOwner->GetCharacterMovement();
-	if (!MovementComp)
-		return false;
-	
 	if (!HasEnoughStamina())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Not Enough Stamina to Dash"));
@@ -75,9 +71,8 @@ bool UTurtleAbilityComponent::TryDash()
 	DashDirection.Z = 0.0f;
 	DashDirection.Normalize();
 	
-	FVector NewVelocity = (DashDirection * DashStrength) + MovementComp->Velocity;
+	TurtleOwner->LaunchCharacter(DashDirection * DashStrength, true, false);
 	
-	MovementComp->Velocity = NewVelocity;
 	StaminaComp->DrainStamina(0.0f, StatusComp->GetDamage(), EStaminaUsageType::Dash);
 	
 	bDashOnCooldown = true;
