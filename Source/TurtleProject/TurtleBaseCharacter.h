@@ -10,6 +10,9 @@
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
+class UTurtleStaminaComponent;
+class UTurtleStatusComponent;
+class UTurtleAbilityComponent;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -55,6 +58,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* DashAction;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UTurtleStaminaComponent* StaminaComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UTurtleStatusComponent* StatusComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UTurtleAbilityComponent* AbilityComponent;
+	
 public:
 
 	/** Constructor */
@@ -92,9 +104,6 @@ public:
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
-	
-	UFUNCTION(BlueprintCallable, Category="Input")
-	FVector2D GetMovementVector() const { return MovementVector; }
 
 public:
 
@@ -103,5 +112,17 @@ public:
 
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
+	UFUNCTION(BlueprintCallable, Category="Input")
+	FVector2D GetMovementVector() const { return MovementVector; }
+	
+	UFUNCTION(BlueprintPure, Category="Components")
+	UTurtleStaminaComponent* GetStaminaComponent() const { return StaminaComponent; }
+	
+	UFUNCTION(BlueprintPure, Category="Components")
+	UTurtleStatusComponent* GetStatusComponent() const { return StatusComponent; }
+	
+	UFUNCTION(BlueprintPure, Category="Components")
+	UTurtleAbilityComponent* GetAbilityComponent() const { return AbilityComponent; }
 };
 

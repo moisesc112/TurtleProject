@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 
-#include "TurtleProjectPlayerController.h"
+#include "TurtlePlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
@@ -9,7 +9,7 @@
 #include "TurtleProject.h"
 #include "Widgets/Input/SVirtualJoystick.h"
 
-void ATurtleProjectPlayerController::BeginPlay()
+void ATurtlePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -33,7 +33,7 @@ void ATurtleProjectPlayerController::BeginPlay()
 	}
 }
 
-void ATurtleProjectPlayerController::SetupInputComponent()
+void ATurtlePlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
@@ -60,7 +60,7 @@ void ATurtleProjectPlayerController::SetupInputComponent()
 	}
 }
 
-bool ATurtleProjectPlayerController::ShouldUseTouchControls() const
+bool ATurtlePlayerController::ShouldUseTouchControls() const
 {
 	// are we on a mobile platform? Should we force touch?
 	return SVirtualJoystick::ShouldDisplayTouchInterface() || bForceTouchControls;

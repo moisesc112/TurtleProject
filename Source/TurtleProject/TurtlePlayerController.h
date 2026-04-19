@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "TurtleProjectPlayerController.generated.h"
+#include "TurtlePlayerController.generated.h"
 
 class UInputMappingContext;
 class UUserWidget;
@@ -14,7 +14,7 @@ class UUserWidget;
  *  Manages input mappings
  */
 UCLASS(abstract)
-class ATurtleProjectPlayerController : public APlayerController
+class ATurtlePlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	

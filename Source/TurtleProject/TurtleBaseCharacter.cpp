@@ -11,6 +11,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "TurtleProject.h"
+#include "TurtleStaminaComponent.h"
+#include "TurtleStatusComponent.h"
+#include "TurtleAbilityComponent.h"
 
 ATurtleBaseCharacter::ATurtleBaseCharacter()
 {
@@ -48,6 +51,10 @@ ATurtleBaseCharacter::ATurtleBaseCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	
+	StaminaComponent = CreateDefaultSubobject<UTurtleStaminaComponent>(TEXT("StaminaComponent"));
+	StatusComponent = CreateDefaultSubobject<UTurtleStatusComponent>(TEXT("StatusComponent"));
+	AbilityComponent = CreateDefaultSubobject<UTurtleAbilityComponent>(TEXT("AbilityComponent"));
 }
 
 void ATurtleBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
