@@ -124,5 +124,8 @@ public:
 	
 	UFUNCTION(BlueprintPure, Category="Components")
 	UTurtleAbilityComponent* GetAbilityComponent() const { return AbilityComponent; }
+	
+	UFUNCTION(BlueprintPure)
+	bool IsDashing() const;
 };
 

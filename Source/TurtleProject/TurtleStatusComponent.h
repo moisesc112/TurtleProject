@@ -25,6 +25,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Status Effects")
 	float GetDamage() const { return Damage; };
 	
+	UFUNCTION(BlueprintCallable, Category = "Status Effects")
+	void SetDamage(float NewDamageValue);
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

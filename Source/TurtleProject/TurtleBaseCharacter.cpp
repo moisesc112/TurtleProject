@@ -145,3 +145,13 @@ void ATurtleBaseCharacter::DoJumpEnd()
 	// signal the character to stop jumping
 	StopJumping();
 }
+
+bool ATurtleBaseCharacter::IsDashing() const
+{
+	if (!AbilityComponent)
+	{
+		return false;
+	}
+	
+	return AbilityComponent->IsDashing();
+}

@@ -48,27 +48,27 @@ bool UTurtleAbilityComponent::HasEnoughStamina() const
 	return StaminaComp->GetCurrentStamina() > 0.0f;
 }
 
-void UTurtleAbilityComponent::TryDash()
+bool UTurtleAbilityComponent::TryDash()
 {
-	if (!TurtleOwner)
-		return;
+	if (bDashOnCooldown || !TurtleOwner)
+		return false;
 	
 	UTurtleStaminaComponent* StaminaComp =  TurtleOwner->GetStaminaComponent();
 	if (!StaminaComp)
-		return;
+		return false;
 	
 	const UTurtleStatusComponent* StatusComp =  TurtleOwner->GetStatusComponent();
 	if (!StatusComp)
-		return;
+		return false;
 	
 	UCharacterMovementComponent* MovementComp =  TurtleOwner->GetCharacterMovement();
 	if (!MovementComp)
-		return;
+		return false;
 	
 	if (!HasEnoughStamina())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Not Enough Stamina to Dash"));
-		return;
+		return false;
 	}
 	
 	FVector DashDirection = TurtleOwner->GetActorForwardVector();
@@ -79,4 +79,18 @@ void UTurtleAbilityComponent::TryDash()
 	
 	MovementComp->Velocity = NewVelocity;
 	StaminaComp->DrainStamina(0.0f, StatusComp->GetDamage(), EStaminaUsageType::Dash);
+	
+	bDashOnCooldown = true;
+	bIsDashing = true;
+	
+	GetWorld()->GetTimerManager().SetTimer(DashCooldownHandle, this, 
+		&UTurtleAbilityComponent::EndDash, DashCooldown, false);
+	
+	return true;
+}
+
+void UTurtleAbilityComponent::EndDash()
+{
+	bIsDashing = false;
+	bDashOnCooldown = false;
 }

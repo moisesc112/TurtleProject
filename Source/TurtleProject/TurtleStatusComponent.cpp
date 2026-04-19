@@ -36,3 +36,8 @@ void UTurtleStatusComponent::SetSlowMultiplier(float NewSlowValue)
 {
 	SlowMultiplier = NewSlowValue;
 }
+
+void UTurtleStatusComponent::SetDamage(float NewDamageValue)
+{
+	Damage = NewDamageValue;
+}
